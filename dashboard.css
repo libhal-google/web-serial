@@ -21,7 +21,7 @@
 
 html,
 body {
-  height: 100%;
+  height: 100vh;
   font-family: "Andale Mono", 'Courier New', Courier, monospace !important;
 }
 
@@ -310,6 +310,14 @@ nav {
   padding-top: .5rem;
 }
 
+.margin-bottom{
+  margin-bottom: .5rem;
+}
+
 #baudrate{
   width: 12ch;
+}
+
+#serial-input{
+  min-width: 25ch;
 }
