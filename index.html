@@ -32,27 +32,26 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-    <span class="title navbar-brand"> Web Serial <sub>v1.0</sub></span>
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto"></ul>
-      <div class="form-inline mt-2 mt-md-0">
-        <label class="form-check-label" style="color: white;">
-          <input class="form-check-input" type="checkbox" disabled id="dtr-control"> DTR </label>
-        <label class="form-check-label" style="padding:10px; color: white;">
-          <input class="form-check-input" type="checkbox" disabled id="rts-control"> RTS </label>
-        <button class="btn btn-outline options-btn" data-toggle="modal" data-target="#options-modal"
-          style="margin-right: 5px;"> Options
-        </button>
-        <button class="btn btn-outline options-btn" data-toggle="modal" data-target="#helpModal"
-          style="margin-right: 5px;"> Help </button>
-        <button id="clear-button" class="btn btn-outline-warning" style="margin-right: 5px;">Clear Console</button>
-        <div class="input-box" style="margin-right: 0.5rem">
-          <input type="number" class="form-control" style="width:12ch;" placeholder="38400" id="baudrate">
-          <span class="suffix">baudrate</span>
-        </div>
-        <button class="btn btn-outline-success my-2 my-sm-0" id="connect">Connect</button>
+  <nav class="flex-wrap">
+    <div class="title"> Web Serial <sub>v1.0</sub></div>
+    <div class="flex-wrap nav-group">
+      <div class="checkbox-input">
+        <input type="checkbox" disabled id="dtr-control">
+        <label for="dtr-control">DTR</label>
       </div>
+      <div class="checkbox-input">
+        <input type="checkbox" disabled id="rts-control">
+        <label for="rts-control">RTS</label>
+      </div>
+      <button data-toggle="modal" data-target="#options-modal"
+        class="nav-item btn btn-outline options-btn">Options</button>
+      <button data-toggle="modal" data-target="#helpModal" class="nav-item btn btn-outline options-btn"> Help </button>
+      <button id="clear-button" class="nav-item btn btn-outline-warning">Clear Console</button>
+      <div class="input-box nav-item">
+        <input type="number" placeholder="38400" id="baudrate">
+        <span class="suffix">baudrate</span>
+      </div>
+      <button id="connect" class="btn btn-outline-success my-2 my-sm-0">Connect</button>
     </div>
   </nav>
   <!-- Options Modal-->
@@ -128,32 +127,30 @@
     </div>
   </div>
   <!-- Page Content -->
-  <div class="container-fluid pt-4" style="height: 97.5%">
-    <div class="row" style="height: 100%">
-      <main class="col-sm-12 col-md-12 col-lg-12" id="serial-output-section" style="z-index: 1; position: absolute;">
-        <div class="input-group" style="margin-bottom: 10px; min-height: 37px;">
-          <input type="text" class="form-control" list="command-history" placeholder="Write Serial Data Here ..."
-            id="serial-input">
-          <datalist id="command-history"></datalist>
-          <span class="input-group-btn">
-            <button class="btn btn-outline-primary" data-toggle="modal" id="file-upload-modal-button"
-              data-target="#serial-file-modal" type="button"> Upload File </button>
-          </span>
-          <span class="input-group-addon">
-            <input type="checkbox" id="carriage-return-select">
-            <span>&nbsp;CR</span>
-          </span>
-          <span class="input-group-addon">
-            <input type="checkbox" id="newline-select" checked><span>&nbsp;NL</span>
-          </span>
-          <span class="input-group-btn">
-            <button id="serial-send" class="btn btn-secondary btn-outline-info" type="button">Send</button>
-          </span>
+  <div class="container-fluid top-padding">
+    <main id="serial-output-section">
+      <div class="input-group flex-wrap margin-bottom">
+        <input type="text" class="form-control" list="command-history" placeholder="Write Serial Data Here ..."
+          id="serial-input">
+        <datalist id="command-history"></datalist>
+        <span class="input-group-btn">
+          <button class="btn btn-outline-primary" data-toggle="modal" id="file-upload-modal-button"
+            data-target="#serial-file-modal" type="button"> Upload File </button>
+        </span>
+        <div class="input-group-addon">
+          <input type="checkbox" id="carriage-return-select">
+          <label for="carriage-return-select">&nbsp;CR</label>
         </div>
-        <div id="terminal" style="height:90%"></div>
-        <textarea disabled id="serial-output" style="display:none" class="form-control fill"></textarea>
-      </main>
-    </div>
+        <div class="input-group-addon">
+          <input type="checkbox" id="newline-select" checked>
+          <label for="newline-select">&nbsp;NL</label>
+        </div>
+        <span class="input-group-btn">
+          <button id="serial-send" class=" btn btn-secondary btn-outline-info" type="button">Send</button>
+        </span>
+      </div>
+      <div id="terminal"></div>
+    </main>
   </div>
   <!-- Clear Command History Cache Modal -->
   <div class="modal fade" id="clear-cache-modal" tabindex="-1" role="dialog" aria-labelledby="clear-cache-modalLabel">

@@ -21,8 +21,7 @@
 
 html,
 body {
-  height: 100%;
-  padding-top: 2%;
+  height: 100vh;
   font-family: "Andale Mono", 'Courier New', Courier, monospace !important;
 }
 
@@ -43,6 +42,10 @@ select,
 textarea {
   font-family: "Andale Mono", 'Courier New', Courier, monospace !important;
   letter-spacing: -0.1rem !important;
+}
+
+button {
+  cursor: pointer;
 }
 
 progress {
@@ -149,6 +152,7 @@ progress::-webkit-progress-value {
 .title {
   font-family: "Andale Mono", courier-new, courier, monospace;
   color: lime !important;
+  font-size: 1.3rem;
 }
 
 /* Placeholders */
@@ -183,11 +187,15 @@ textarea {
   flex-direction: row;
 }
 
+.input-group-addon label {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
 main {
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 hr {
@@ -277,4 +285,47 @@ textarea[disabled] {
 
 .input-box:focus-within {
   border-color: #777;
+}
+
+nav {
+  background-color: #292B2C;
+  color: white;
+  padding: .5rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.nav-item {
+  margin: 0 .25rem;
+}
+
+.checkbox-input {
+  margin-top: auto;
+  margin-right: 10px;
+  margin-left: 0px;
+}
+
+.top-padding {
+  padding-top: .5rem;
+}
+
+.margin-bottom {
+  margin-bottom: .5rem;
+}
+
+#baudrate {
+  width: 12ch;
+}
+
+#serial-input {
+  min-width: 25ch;
+}
+
+#terminal {
+  height: 87vh;
 }
