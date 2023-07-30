@@ -128,31 +128,29 @@
   </div>
   <!-- Page Content -->
   <div class="container-fluid top-padding">
-    <div class="row">
-      <main class="col-sm-12 col-md-12 col-lg-12" id="serial-output-section" style="z-index: 1;">
-        <div class="input-group flex-wrap margin-bottom">
-          <input type="text" class="form-control" list="command-history" placeholder="Write Serial Data Here ..."
-            id="serial-input">
-          <datalist id="command-history"></datalist>
-          <span class="input-group-btn">
-            <button class="btn btn-outline-primary" data-toggle="modal" id="file-upload-modal-button"
-              data-target="#serial-file-modal" type="button"> Upload File </button>
-          </span>
-          <span class="input-group-addon">
-            <input type="checkbox" id="carriage-return-select">
-            <label for="carriage-return-select">&nbsp;CR</label>
-          </span>
-          <span class="input-group-addon">
-            <input type="checkbox" id="newline-select" checked>
-            <label for="newline-select">&nbsp;NL</label>
-          </span>
-          <span class="input-group-btn">
-            <button id="serial-send" class="btn btn-secondary btn-outline-info" type="button">Send</button>
-          </span>
+    <main id="serial-output-section">
+      <div class="input-group flex-wrap margin-bottom">
+        <input type="text" class="form-control" list="command-history" placeholder="Write Serial Data Here ..."
+          id="serial-input">
+        <datalist id="command-history"></datalist>
+        <span class="input-group-btn">
+          <button class="btn btn-outline-primary" data-toggle="modal" id="file-upload-modal-button"
+            data-target="#serial-file-modal" type="button"> Upload File </button>
+        </span>
+        <div class="input-group-addon">
+          <input type="checkbox" id="carriage-return-select">
+          <label for="carriage-return-select">&nbsp;CR</label>
         </div>
-        <div id="terminal"></div>
-      </main>
-    </div>
+        <div class="input-group-addon">
+          <input type="checkbox" id="newline-select" checked>
+          <label for="newline-select">&nbsp;NL</label>
+        </div>
+        <span class="input-group-btn">
+          <button id="serial-send" class=" btn btn-secondary btn-outline-info" type="button">Send</button>
+        </span>
+      </div>
+      <div id="terminal"></div>
+    </main>
   </div>
   <!-- Clear Command History Cache Modal -->
   <div class="modal fade" id="clear-cache-modal" tabindex="-1" role="dialog" aria-labelledby="clear-cache-modalLabel">

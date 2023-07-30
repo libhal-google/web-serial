@@ -196,7 +196,6 @@ main {
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 hr {
@@ -328,7 +327,5 @@ nav {
 }
 
 #terminal {
-  position: relative;
-  min-height: 87vh;
-  width: 100%;
+  height: 87vh;
 }
