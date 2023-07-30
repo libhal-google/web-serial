@@ -127,9 +127,9 @@
     </div>
   </div>
   <!-- Page Content -->
-  <div class="container-fluid top-padding" style="height: 90vh;">
-    <div class="row" style="height: 100%">
-      <main class="col-sm-12 col-md-12 col-lg-12" id="serial-output-section" style="z-index: 1; position: absolute;">
+  <div class="container-fluid top-padding">
+    <div class="row">
+      <main class="col-sm-12 col-md-12 col-lg-12" id="serial-output-section" style="z-index: 1;">
         <div class="input-group flex-wrap margin-bottom">
           <input type="text" class="form-control" list="command-history" placeholder="Write Serial Data Here ..."
             id="serial-input">
@@ -140,17 +140,17 @@
           </span>
           <span class="input-group-addon">
             <input type="checkbox" id="carriage-return-select">
-            <span>&nbsp;CR</span>
+            <label for="carriage-return-select">&nbsp;CR</label>
           </span>
           <span class="input-group-addon">
-            <input type="checkbox" id="newline-select" checked><span>&nbsp;NL</span>
+            <input type="checkbox" id="newline-select" checked>
+            <label for="newline-select">&nbsp;NL</label>
           </span>
           <span class="input-group-btn">
             <button id="serial-send" class="btn btn-secondary btn-outline-info" type="button">Send</button>
           </span>
         </div>
-        <div id="terminal" style="height: 90vh"></div>
-        <textarea disabled id="serial-output" style="display:none" class="form-control fill"></textarea>
+        <div id="terminal"></div>
       </main>
     </div>
   </div>

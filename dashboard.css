@@ -44,7 +44,7 @@ textarea {
   letter-spacing: -0.1rem !important;
 }
 
-button{
+button {
   cursor: pointer;
 }
 
@@ -187,6 +187,11 @@ textarea {
   flex-direction: row;
 }
 
+.input-group-addon label {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
 main {
   height: 100%;
   display: flex;
@@ -291,33 +296,39 @@ nav {
   justify-content: space-between;
 }
 
-.flex-wrap{
+.flex-wrap {
   display: flex;
   flex-wrap: wrap;
 }
 
-.nav-item{
+.nav-item {
   margin: 0 .25rem;
 }
 
-.checkbox-input{
+.checkbox-input {
   margin-top: auto;
   margin-right: 10px;
   margin-left: 0px;
 }
 
-.top-padding{
+.top-padding {
   padding-top: .5rem;
 }
 
-.margin-bottom{
+.margin-bottom {
   margin-bottom: .5rem;
 }
 
-#baudrate{
+#baudrate {
   width: 12ch;
 }
 
-#serial-input{
+#serial-input {
   min-width: 25ch;
+}
+
+#terminal {
+  position: relative;
+  min-height: 87vh;
+  width: 100%;
 }
