@@ -30,7 +30,6 @@ fit_addon.fit();
 
 input = "";
 term.onData(function (data, ev) {
-  input += data;
   switch (data) {
     case "\r":
       writeToDevice();
@@ -39,7 +38,15 @@ term.onData(function (data, ev) {
     case "\x7f":
       handleBackspace();
       break;
+    // Ignore arrow keys
+    case "\x1b":
+    case "\x1b[A":
+    case "\x1b[B":
+    case "\x1b[C":
+    case "\x1b[D":
+      break;
     default:
+      input += data;
       term.write(data);
       break;
   }
@@ -56,7 +63,7 @@ async function writeToDevice() {
   let payload = `${input}${cr}${nl}`
   if (port) {
     const writer = port.writable.getWriter();
-    await writer.write(encoder.encode(payload.slice(0, -1)));
+    await writer.write(encoder.encode(payload));
     writer.releaseLock();
   }
   input = "";
