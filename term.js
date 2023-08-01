@@ -17,7 +17,7 @@ let term = new Terminal({
   fontFamily: "Andale Mono, courier-new, courier, monospace",
   scrollback: 1024 * 100,
   cursorBlink: true,
-  tabStopWidth: 4,
+  tabStopWidth: 1,
   lineHeight: 1,
   fontSize: 18,
 });
