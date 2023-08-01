@@ -44,16 +44,40 @@
         <label for="rts-control">RTS</label>
       </div>
       <button data-toggle="modal" data-target="#options-modal"
-        class="nav-item btn btn-outline options-btn">Options</button>
-      <button data-toggle="modal" data-target="#helpModal" class="nav-item btn btn-outline options-btn"> Help </button>
-      <button id="clear-button" class="nav-item btn btn-outline-warning">Clear Console</button>
-      <div class="input-box nav-item">
+        class="nav-item btn btn-outline-secondary">Options</button>
+      <button data-toggle="modal" data-target="#helpModal" class="nav-item btn btn-outline-secondary"> Help </button>
+      <button id="clear-console-button" class="nav-item btn btn-outline-warning">Clear Console</button>
+      <div class="nav-item input-box ">
         <input type="number" placeholder="38400" id="baudrate">
         <span class="suffix">baudrate</span>
       </div>
-      <button id="connect" class="btn btn-outline-success my-2 my-sm-0">Connect</button>
+      <button id="connect" class="nav-item btn btn-outline-success">Connect</button>
     </div>
   </nav>
+  <!-- Page Content -->
+  <main class="margin">
+    <div id="input-group" class="input-group flex-wrap" style="margin-bottom: .75rem;">
+      <input type="text" class="form-control" list="command-history" placeholder="Write Serial Data Here ..."
+        id="serial-input">
+      <datalist id="command-history"></datalist>
+      <span class="input-group-btn">
+        <button class="btn btn-warning" data-toggle="modal" id="file-upload-modal-button"
+          data-target="#serial-file-modal" type="button">Upload File</button>
+      </span>
+      <div class="input-group-addon">
+        <input type="checkbox" id="carriage-return-select">
+        <label for="carriage-return-select">&nbsp;CR</label>
+      </div>
+      <div class="input-group-addon">
+        <input type="checkbox" id="newline-select" checked>
+        <label for="newline-select">&nbsp;NL</label>
+      </div>
+      <span class="input-group-btn">
+        <button id="serial-send" class="btn btn-success" type="button">Send</button>
+      </span>
+    </div>
+    <div id="terminal"></div>
+  </main>
   <!-- Options Modal-->
   <div id="options-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -64,11 +88,8 @@
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           <div class="modal-body">
-            <div class="btn-group-vertical" style="width:100%">
-              <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" value="dark-theme" id="dark-theme"> Dark Theme </label>
-              <hr />
-              <button id="clear-cache-modal-open" class="btn btn-outline-danger clear-btn"> Clear Command History
+            <div class="flex-wrap margin">
+              <button id="clear-cache-modal-open" class="btn btn-danger" style="width: 100%"> Clear Command History
               </button>
             </div>
           </div>
@@ -115,42 +136,13 @@
           <h3 style="text-decoration: underline">Options</h3>
           <p>To active/deactivate open the options interface by pressing the
             button on the upper right hand location.</p>
-          <h4>Dark Theme</h4>
+          <h4>Clear Command History</h4>
           <ul>
-            <li>Selecting this changes the interface to a dark mode.</li>
+            <li>Clicking this will clear the serial data history.</li>
           </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Page Content -->
-  <div class="container-fluid top-padding">
-    <main id="serial-output-section">
-      <div class="input-group flex-wrap margin-bottom">
-        <input type="text" class="form-control" list="command-history" placeholder="Write Serial Data Here ..."
-          id="serial-input">
-        <datalist id="command-history"></datalist>
-        <span class="input-group-btn">
-          <button class="btn btn-outline-primary" data-toggle="modal" id="file-upload-modal-button"
-            data-target="#serial-file-modal" type="button"> Upload File </button>
-        </span>
-        <div class="input-group-addon">
-          <input type="checkbox" id="carriage-return-select">
-          <label for="carriage-return-select">&nbsp;CR</label>
-        </div>
-        <div class="input-group-addon">
-          <input type="checkbox" id="newline-select" checked>
-          <label for="newline-select">&nbsp;NL</label>
-        </div>
-        <span class="input-group-btn">
-          <button id="serial-send" class=" btn btn-secondary btn-outline-info" type="button">Send</button>
-        </span>
-      </div>
-      <div id="terminal"></div>
-    </main>
   </div>
   <!-- Clear Command History Cache Modal -->
   <div class="modal fade" id="clear-cache-modal" tabindex="-1" role="dialog" aria-labelledby="clear-cache-modalLabel">

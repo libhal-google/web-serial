@@ -227,7 +227,7 @@ document.querySelector("#serial-send").addEventListener("click", async () => {
 });
 
 //Clear Button Code
-document.querySelector("#clear-button").addEventListener("click", () => {
+document.querySelector("#clear-console-button").addEventListener("click", () => {
   // [0m = Reset color codes
   // [3J = Remove terminal buffer
   // [2J = Clear screen
@@ -308,8 +308,6 @@ flags.attach("dark-theme", "change", false, ApplyDarkTheme, ApplyDarkTheme);
 flags.bind("command-history", commandHistoryUpdateHandler, []);
 
 function main() {
-  term.open(document.querySelector("#terminal"));
-  fit_addon.fit();
   flags.initialize();
 }
 
