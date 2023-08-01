@@ -29,7 +29,7 @@ term.loadAddon(new WebLinksAddon.WebLinksAddon());
 fit_addon.fit();
 
 input = "";
-term.onData(function (data, ev) {
+term.onData(function (data) {
   switch (data) {
     case "\r":
       writeToDevice();
@@ -39,7 +39,6 @@ term.onData(function (data, ev) {
       handleBackspace();
       break;
     // Ignore arrow keys
-    case "\x1b":
     case "\x1b[A":
     case "\x1b[B":
     case "\x1b[C":
@@ -53,7 +52,7 @@ term.onData(function (data, ev) {
 });
 
 function handleBackspace() {
-  input = input.slice(0, -2);
+  input = input.slice(0, -1);
   term.write("\b \b");
 }
 
