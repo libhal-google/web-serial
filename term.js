@@ -12,31 +12,52 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
 let term = new Terminal({
-  // bellSound: "both",
-  // bellStyle: "sound",
-  cursorBlink: true,
-  lineHeight: 1,
-  fontSize: 18,
   fontFamily: "Andale Mono, courier-new, courier, monospace",
   scrollback: 1024 * 100,
+  cursorBlink: true,
+  tabStopWidth: 4,
+  lineHeight: 1,
+  fontSize: 18,
 });
 
+term.open(document.getElementById('terminal'));
 const fit_addon = new FitAddon.FitAddon();
 term.loadAddon(fit_addon);
 term.loadAddon(new WebLinksAddon.WebLinksAddon());
+fit_addon.fit();
 
-term.onKey(async function (key) {
-  key = (key.code == "Backspace") ? "\b" : key;
-  key = (key.code == "Enter") ? "\n" : key;
-  if (port) {
-    const encoder = new TextEncoder();
-    const writer = port.writable.getWriter();
-    await writer.write(encoder.encode(key));
-    writer.releaseLock();
+input = "";
+term.onData(function (data, ev) {
+  input += data;
+  switch (data) {
+    case "\r":
+      writeToDevice();
+      term.write("\r\n");
+      break;
+    case "\x7f":
+      handleBackspace();
+      break;
+    default:
+      term.write(data);
+      break;
   }
 });
 
-term.onData(function (data, ev) {
-  console.debug(data);
-});
+function handleBackspace() {
+  input = input.slice(0, -2);
+  term.write("\b \b");
+}
+
+async function writeToDevice() {
+  let cr = flags.get("carriage-return-select") ? "\r" : "";
+  let nl = flags.get("newline-select") ? "\n" : "";
+  let payload = `${input}${cr}${nl}`
+  if (port) {
+    const writer = port.writable.getWriter();
+    await writer.write(encoder.encode(payload.slice(0, -1)));
+    writer.releaseLock();
+  }
+  input = "";
+}
