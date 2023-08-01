@@ -26,7 +26,6 @@ term.open(document.getElementById('terminal'));
 const fit_addon = new FitAddon.FitAddon();
 term.loadAddon(fit_addon);
 term.loadAddon(new WebLinksAddon.WebLinksAddon());
-
 fit_addon.fit();
 
 input = "";
@@ -54,10 +53,10 @@ function handleBackspace() {
 async function writeToDevice() {
   let cr = flags.get("carriage-return-select") ? "\r" : "";
   let nl = flags.get("newline-select") ? "\n" : "";
-  let payload = input + cr + nl;
+  let payload = `${input}${cr}${nl}`
   if (port) {
     const writer = port.writable.getWriter();
-    await writer.write(encoder.encode(payload));
+    await writer.write(encoder.encode(payload.slice(0, -1)));
     writer.releaseLock();
   }
   input = "";

@@ -278,23 +278,6 @@ document.querySelector("#serial-upload").addEventListener("click", () => {
 //  Initialize everything
 //===================================
 
-function ApplyDarkTheme(dark_theme_active) {
-  console.debug("Dark theme: ", dark_theme_active);
-  let head = document.querySelector("head");
-  if (dark_theme_active) {
-    head.innerHTML += `<link
-      rel="stylesheet"
-      type="text/css"
-      id="dark-style"
-      href="static/lib/themes/dark-theme.css">`;
-  } else {
-    let dark_style = document.querySelector("#dark-style");
-    if (dark_style) {
-      head.removeChild(dark_style);
-    }
-  }
-}
-
 function commandHistoryUpdateHandler(command_list) {
   let command_history_element = document.querySelector("#command-history");
   command_history_element.innerHTML = generateCommandListHtml(command_list);
@@ -304,7 +287,6 @@ function commandHistoryUpdateHandler(command_list) {
 flags.attach("baudrate", "change", "38400");
 flags.attach("carriage-return-select", "change");
 flags.attach("newline-select", "change", true);
-flags.attach("dark-theme", "change", false, ApplyDarkTheme, ApplyDarkTheme);
 flags.bind("command-history", commandHistoryUpdateHandler, []);
 
 function main() {
