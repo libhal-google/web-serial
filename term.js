@@ -57,7 +57,7 @@ function handleBackspace() {
 }
 
 async function writeToDevice() {
-  let cr = flags.get("carriage-return-select") ? "\r" : "";
+  let cr = flags.get("carriage-return-checkbox") ? "\r" : "";
   let nl = flags.get("newline-select") ? "\n" : "";
   let payload = `${input}${cr}${nl}`
   if (port) {

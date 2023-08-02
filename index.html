@@ -33,39 +33,39 @@
     <h1>Web Serial<sub>v1.0</sub></h1>
     <div>
       <div>
-        <input type="checkbox" disabled id="dtr-control">
-        <label for="dtr-control">DTR</label>
+        <label for="dtr-checkbox">DTR</label>
+        <input id="dtr-checkbox" type="checkbox" disabled>
       </div>
       <div>
-        <input type="checkbox" disabled id="rts-control">
-        <label for="rts-control">RTS</label>
+        <label for="rts-checkbox">RTS</label>
+        <input id="rts-checkbox" type="checkbox" disabled>
       </div>
-      <button data-toggle="modal" data-target="#options-modal">Options</button>
-      <button data-toggle="modal" data-target="#helpModal">Help</button>
-      <button id="clear-button">Clear Console</button>
+      <button id="options-btn" type="button" data-toggle="modal" data-target="#options-modal">Options</button>
+      <button id="help-btn" type="button" data-toggle="modal" data-target="#helpModal">Help</button>
+      <button id="clear-btn" type="button">Clear Console</button>
       <div>
         <input id="baudrate" type="number" placeholder="38400">
         <label>baudrate</label>
       </div>
-      <button id="connect">Connect</button>
+      <button id="connect-btn" type="button">Connect</button>
     </div>
   </nav>
 
   <main>
     <input id="serial-input" type="text" list="command-history" placeholder="Write serial data here...">
     <datalist id="command-history"></datalist>
-    <button id="file-upload-modal-button" data-toggle="modal" data-target="#serial-file-modal" type="button">
+    <button id="upload-btn" type="button" data-toggle="modal" data-target="#serial-file-modal">
       Upload File
     </button>
     <div>
-      <label for="carriage-return-select">CR</label>
-      <input type="checkbox" id="carriage-return-select">
+      <label for="carriage-return-checkbox">CR</label>
+      <input id="carriage-return-checkbox" type="checkbox">
     </div>
     <div>
       <label for="newline-select">NL</label>
-      <input type="checkbox" id="newline-select" checked>
+      <input id="newline-select" type="checkbox" checked>
     </div>
-    <button id="serial-send" type="button">Send</button>
+    <button id="send-btn" type="button">Send</button>
     <div id="terminal"></div>
   </main>
 

@@ -95,10 +95,10 @@ function disconnectFromDevice() {
     .removeClass("btn-outline-danger")
     .text("Connect");
   $("#baudrate").prop("disabled", false);
-  $("#dtr-control").prop("disabled", true);
-  $("#rts-control").prop("disabled", true);
-  $("#dtr-control").prop("checked", false);
-  $("#rts-control").prop("checked", false);
+  $("#dtr-checkbox").prop("disabled", true);
+  $("#rts-checkbox").prop("disabled", true);
+  $("#dtr-checkbox").prop("checked", false);
+  $("#rts-checkbox").prop("checked", false);
 }
 
 async function readFromDevice(port) {
@@ -132,7 +132,7 @@ async function readFromDevice(port) {
 //===================================
 //  Button Click Listeners
 //===================================
-document.querySelector("#connect").addEventListener("click", async () => {
+document.querySelector("#connect-btn").addEventListener("click", async () => {
   if (device_connected) {
     disconnectFromDevice();
     return;
@@ -148,8 +148,8 @@ document.querySelector("#connect").addEventListener("click", async () => {
         .addClass("btn-outline-danger")
         .text("Disconnect");
       $("#baudrate").prop("disabled", true);
-      $("#dtr-control").prop("disabled", false);
-      $("#rts-control").prop("disabled", false);
+      $("#dtr-checkbox").prop("disabled", false);
+      $("#rts-checkbox").prop("disabled", false);
       readFromDevice(port);
     } catch (error) {
       const notFoundText = "NotFoundError: No port selected by the user.";
@@ -162,13 +162,13 @@ document.querySelector("#connect").addEventListener("click", async () => {
 });
 
 
-document.querySelector("#dtr-control").addEventListener("click", async () => {
-  let dataTerminalReady = !!document.querySelector("#dtr-control").checked;
+document.querySelector("#dtr-checkbox").addEventListener("click", async () => {
+  let dataTerminalReady = !!document.querySelector("#dtr-checkbox").checked;
   await port.setSignals({ dataTerminalReady });
 });
 
-document.querySelector("#rts-control").addEventListener("click", async () => {
-  let requestToSend = !!document.querySelector("#rts-control").checked;
+document.querySelector("#rts-checkbox").addEventListener("click", async () => {
+  let requestToSend = !!document.querySelector("#rts-checkbox").checked;
   await port.setSignals({ requestToSend });
 });
 
@@ -191,7 +191,7 @@ document.querySelector("#serial-input").addEventListener("keyup", event => {
       }
       break;
     case ENTER_KEY:
-      $("#serial-send").click();
+      $("#send-btn").click();
       break;
     default:
       count_change_flag = false;
@@ -205,7 +205,7 @@ document.querySelector("#serial-input").addEventListener("keyup", event => {
   }
 });
 
-document.querySelector("#serial-send").addEventListener("click", async () => {
+document.querySelector("#send-btn").addEventListener("click", async () => {
   let payload = $("#serial-input").val();
   $("#serial-input").val("");
 
@@ -215,7 +215,7 @@ document.querySelector("#serial-send").addEventListener("click", async () => {
 
   history_position = 0;
 
-  let cr = flags.get("carriage-return-select") ? "\r" : "";
+  let cr = flags.get("carriage-return-checkbox") ? "\r" : "";
   let nl = flags.get("newline-select") ? "\n" : "";
 
   console.log(`${payload}${cr}${nl}\n\n\n`);
@@ -227,7 +227,7 @@ document.querySelector("#serial-send").addEventListener("click", async () => {
 });
 
 //Clear Button Code
-document.querySelector("#clear-button").addEventListener("click", () => {
+document.querySelector("#clear-btn").addEventListener("click", () => {
   // [0m = Reset color codes
   // [3J = Remove terminal buffer
   // [2J = Clear screen
@@ -302,7 +302,7 @@ function commandHistoryUpdateHandler(command_list) {
 }
 
 flags.attach("baudrate", "change", "38400");
-flags.attach("carriage-return-select", "change");
+flags.attach("carriage-return-checkbox", "change");
 flags.attach("newline-select", "change", true);
 flags.attach("dark-theme", "change", false, ApplyDarkTheme, ApplyDarkTheme);
 flags.bind("command-history", commandHistoryUpdateHandler, []);
