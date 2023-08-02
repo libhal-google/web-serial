@@ -308,8 +308,6 @@ flags.attach("dark-theme", "change", false, ApplyDarkTheme, ApplyDarkTheme);
 flags.bind("command-history", commandHistoryUpdateHandler, []);
 
 function main() {
-  term.open(document.querySelector("#terminal"));
-  fit_addon.fit();
   flags.initialize();
 }
 
