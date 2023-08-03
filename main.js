@@ -243,9 +243,7 @@ document
   });
 
 document.querySelector("#clear-command-cache").addEventListener("click", () => {
-  flags.set("command-history", [
-    /* empty array */
-  ]);
+  flags.set("command-history", []);
 });
 
 //Serial File Upload

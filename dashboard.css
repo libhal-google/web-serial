@@ -25,3 +25,14 @@
 * {
   font-family: "Andale Mono", 'Courier New', Courier, monospace;
 }
+
+.flex-spaced {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
