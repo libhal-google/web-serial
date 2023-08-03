@@ -15,15 +15,78 @@
  */
 
 :root {
-  --text: darkgray;
-  --background: lightgray;
-  --primary: black;
-  --secondary: gray;
   --accent: lime;
+  --primary: #262728;
+  --secondary: white;
+  --tertiary: linear-gradient(90deg, black 0%, var(--primary) 100%);
+  --padding: .6rem;
 }
 
 * {
-  font-family: "Andale Mono", 'Courier New', Courier, monospace;
+  font-family: "Andale Mono", 'Courier New', Courier, monospace !important;
+  font-size: 1rem;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(220, 220, 220);
+}
+
+nav {
+  background: linear-gradient(90deg, black 0%, var(--primary) 100%);
+  color: var(--secondary);
+}
+
+h1 {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+h3 {
+  color: var(--accent);
+  border-bottom: var(--primary) 1px solid;
+}
+
+main {
+  margin: 0 1rem;
+}
+
+button {
+  padding: var(--padding);
+  border: none;
+  border-radius: 5px;
+  background-color: inherit;
+  color: var(--secondary);
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.2), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1);
+}
+
+input {
+  color: black;
+  padding: var(--padding);
+  accent-color: var(--accent);
+  background-color: var(--secondary);
+  border: none;
+}
+
+input:focus {
+  outline: 1px solid var(--accent);
+}
+
+input[type="checkbox"]:not(:disabled):hover {
+  cursor: pointer;
+}
+
+dialog {
+  padding-top: 0;
+  min-width: 30vw;
 }
 
 .flex-spaced {
@@ -33,6 +96,11 @@
   flex-wrap: wrap;
 }
 
-.flex-grow {
+#serial-group {
+  margin: 1rem;
+  background-color: var(--primary);
+}
+
+#serial-input {
   flex-grow: 1;
 }

@@ -29,7 +29,7 @@
 
 <body>
   <nav class="flex-spaced">
-    <h1>Web Serial<sub>v1.0</sub></h1>
+    <h1 class="accent-color">Web Serial<sub>v1.0</sub></h1>
     <div>
       <label>DTR
         <input id="dtr-checkbox" type="checkbox" disabled>
@@ -48,11 +48,10 @@
   </nav>
 
   <main>
-    <div class="flex-spaced">
-      <input id="serial-input" type="text" list="command-history" placeholder="Write serial data here..."
-        class="flex-grow">
+    <div id="serial-group" class="flex-spaced">
+      <input id="serial-input" type="text" list="command-history" placeholder="Write serial data here...">
       <datalist id="command-history"></datalist>
-      <div>
+      <div class="group">
         <button id="upload-btn" type="button" data-toggle="modal" data-target="#serial-file-modal">
           Upload File
         </button>
@@ -75,9 +74,11 @@
       <button id="close-options-dialog-btn" type="button">&times;</button>
     </div>
     <div>
+      <h3>Themes</h3>
       <label>Dark Theme
         <input id="dark-theme-checkbox" type="checkbox" checked>
       </label>
+      <h3>Serial</h3>
       <button id="clear-history-btn">Clear Serial History</button>
     </div>
   </dialog>
@@ -94,13 +95,13 @@
         <li>Set the correct baud rate for your device</li>
         <li>Click the connect button and select your serial device</li>
       </ol>
-      <h3>Serial baud rate</h3>
+      <h3>Serial Baud Rate</h3>
       <ul>
         <li>Determines the rate at which bits are sent and received to your device</li>
         <li>One baud represents one bit of information transferred per second</li>
         <li>Common baud rates: 9600, 38400, 57600, 115200</li>
       </ul>
-      <h3>Carriage return(CR) and new line(NL)</h3>
+      <h3>Carriage Return(CR) & New Line(NL)</h3>
       <ul>
         <li>CR checked appends \r to your serial data</li>
         <li>NL checked appends \n to your serial data</li>
@@ -113,8 +114,8 @@
       <h2>Upload File</h2>
       <button id="close-upload-dialog-btn" type="button">&times;</button>
     </div>
-    <div>
-      <input id="serial-file" type="file" accept=".txt, .hex" />
+    <div class="flex-spaced">
+      <input id="serial-file" type="file" accept=".txt, .hex" class="" />
       <button id="serial-upload" type="submit">Upload</button>
     </div>
   </dialog>
