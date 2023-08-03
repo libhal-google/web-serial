@@ -39,6 +39,7 @@ body {
 nav {
   background: var(--tertiary);
   color: var(--secondary);
+  padding: 0 1rem;
 }
 
 h1 {
@@ -65,7 +66,7 @@ button {
 
 button:hover {
   cursor: pointer;
-  box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.2), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.41), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1);
 }
 
 #baudrate-label,
@@ -115,4 +116,8 @@ dialog {
 
 #serial-input {
   flex-grow: 1;
+}
+
+#terminal {
+  height: 80vh;
 }
