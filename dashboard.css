@@ -37,7 +37,7 @@ body {
 }
 
 nav {
-  background: linear-gradient(90deg, black 0%, var(--primary) 100%);
+  background: var(--tertiary);
   color: var(--secondary);
 }
 
@@ -68,6 +68,7 @@ button:hover {
   box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.2), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1);
 }
 
+#baudrate-label,
 input {
   color: black;
   padding: var(--padding);
@@ -94,6 +95,17 @@ dialog {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+}
+
+#baudrate {
+  width: 8ch;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+#baudrate-label {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 #serial-group {
