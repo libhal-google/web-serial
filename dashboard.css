@@ -16,7 +16,7 @@
 
 :root {
   --accent: lime;
-  --primary: #262728;
+  --primary: #3b3c3d;
   --secondary: white;
   --tertiary: linear-gradient(90deg, black 0%, var(--primary) 100%);
   --padding: .6rem;
@@ -33,18 +33,24 @@ html {
 
 body {
   margin: 0;
-  background-color: rgb(220, 220, 220);
+  background-color: black;
 }
 
 nav {
-  background: var(--tertiary);
+  background-color: black;
   color: var(--secondary);
-  padding: 0 1rem;
+  padding: 0 var(--padding);
+  border-bottom: 1px solid var(--primary);
 }
 
 h1 {
   font-size: 1.5rem;
   color: var(--accent);
+  text-shadow:
+    0 0 10px var(--accent),
+    0 0 20px var(--accent),
+    0 0 40px var(--accent),
+    0 0 80px var(--accent);
 }
 
 h3 {
@@ -53,7 +59,8 @@ h3 {
 }
 
 main {
-  margin: 0 1rem;
+  padding: 0 var(--padding);
+
 }
 
 button {
@@ -62,19 +69,23 @@ button {
   border-radius: 5px;
   background-color: inherit;
   color: var(--secondary);
-}
-
-button:hover {
-  cursor: pointer;
   box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.41), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1);
 }
 
-#baudrate-label,
-input {
+button:hover,
+input[type="checkbox"]:not(:disabled):hover {
+  cursor: pointer;
+  box-shadow: 0 2px 4px 0 rgb(0, 255, 0), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+
+input,
+#baudrate-label {
   color: black;
   padding: var(--padding);
   accent-color: var(--accent);
   background-color: var(--secondary);
+  border-radius: 5px;
   border: none;
 }
 
@@ -82,13 +93,12 @@ input:focus {
   outline: 1px solid var(--accent);
 }
 
-input[type="checkbox"]:not(:disabled):hover {
-  cursor: pointer;
+dialog {
+  padding-top: calc(var(--padding) * .5);
 }
 
-dialog {
-  padding-top: 0;
-  min-width: 30vw;
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.601);
 }
 
 .flex-spaced {
@@ -98,6 +108,14 @@ dialog {
   flex-wrap: wrap;
 }
 
+.flex-spaced>* {
+  margin: .25rem;
+}
+
+.group>* {
+  margin: .25rem;
+}
+
 #baudrate {
   width: 8ch;
   padding-right: 0;
@@ -105,13 +123,11 @@ dialog {
 }
 
 #baudrate-label {
-  padding-left: 0;
-  padding-right: 0;
+  padding: inherit 0;
 }
 
 #serial-group {
-  margin: 1rem;
-  background-color: var(--primary);
+  background-color: black;
 }
 
 #serial-input {
@@ -120,4 +136,8 @@ dialog {
 
 #terminal {
   height: 80vh;
+}
+
+#connect-btn {
+  color: lime;
 }

@@ -30,7 +30,7 @@
 <body>
   <nav class="flex-spaced">
     <h1 class="accent-color">Web Serial<sub>v1.0</sub></h1>
-    <div>
+    <div class="group">
       <label>DTR
         <input id="dtr-checkbox" type="checkbox" disabled>
       </label>
@@ -94,7 +94,7 @@
       <ol>
         <li>Connect device to USB port</li>
         <li>Set the correct baud rate for your device</li>
-        <li>Click the connect button and select your serial device</li>
+        <li>Click connect and select your device</li>
       </ol>
       <h3>Serial Baud Rate</h3>
       <ul>
@@ -117,7 +117,9 @@
     </div>
     <div class="flex-spaced">
       <input id="serial-file" type="file" accept=".txt, .hex" class="" />
-      <button id="serial-upload" type="submit">Upload</button>
+      <div class="group">
+        <button id="serial-upload" type="submit">Upload</button>
+      </div>
     </div>
   </dialog>
 
