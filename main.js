@@ -74,6 +74,30 @@ async function readFromDevice(port) {
   await port.close();
 }
 
+document.querySelector("#options-btn").addEventListener("click", async () => {
+  document.querySelector("#options-dialog").showModal();
+});
+
+document.querySelector("#close-options-dialog-btn").addEventListener("click", async () => {
+  document.querySelector("#options-dialog").close();
+});
+
+document.querySelector("#help-btn").addEventListener("click", async () => {
+  document.querySelector("#help-dialog").showModal();
+});
+
+document.querySelector("#close-help-dialog-btn").addEventListener("click", async () => {
+  document.querySelector("#help-dialog").close();
+});
+
+document.querySelector("#upload-btn").addEventListener("click", async () => {
+  document.querySelector("#upload-dialog").showModal();
+});
+
+document.querySelector("#close-upload-dialog-btn").addEventListener("click", async () => {
+  document.querySelector("#upload-dialog").close();
+});
+
 document.querySelector("#connect-btn").addEventListener("click", async () => {
   if (device_connected) {
     disconnectFromDevice();
