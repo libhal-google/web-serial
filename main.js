@@ -18,7 +18,7 @@ const flags = new Flags();
 const change_event = new Event("change");
 const collator = new Intl.Collator(undefined, {
   numeric: true,
-  sensitivity: "base"
+  sensitivity: "base",
 });
 
 window.addEventListener("load", flags.initialize());
@@ -27,25 +27,31 @@ document.querySelector("#options-btn").addEventListener("click", () => {
   document.querySelector("#options-dialog").showModal();
 });
 
-document.querySelector("#close-options-dialog-btn").addEventListener("click", () => {
-  document.querySelector("#options-dialog").close();
-});
+document
+  .querySelector("#close-options-dialog-btn")
+  .addEventListener("click", () => {
+    document.querySelector("#options-dialog").close();
+  });
 
 document.querySelector("#help-btn").addEventListener("click", () => {
   document.querySelector("#help-dialog").showModal();
 });
 
-document.querySelector("#close-help-dialog-btn").addEventListener("click", () => {
-  document.querySelector("#help-dialog").close();
-});
+document
+  .querySelector("#close-help-dialog-btn")
+  .addEventListener("click", () => {
+    document.querySelector("#help-dialog").close();
+  });
 
 document.querySelector("#upload-btn").addEventListener("click", () => {
   document.querySelector("#upload-dialog").showModal();
 });
 
-document.querySelector("#close-upload-dialog-btn").addEventListener("click", () => {
-  document.querySelector("#upload-dialog").close();
-});
+document
+  .querySelector("#close-upload-dialog-btn")
+  .addEventListener("click", () => {
+    document.querySelector("#upload-dialog").close();
+  });
 
 document.querySelector("#connect-btn").addEventListener("click", async () => {
   device_connected ? disconnectFromDevice() : connectToDevice();
@@ -72,7 +78,7 @@ document.querySelector("#clear-history-btn").addEventListener("click", () => {
   document.querySelector("#options-dialog").close();
 });
 
-document.querySelector("#serial-input").addEventListener("keyup", event => {
+document.querySelector("#serial-input").addEventListener("keyup", (event) => {
   const DOWN_ARROW = 38;
   const UP_ARROW = 40;
   const ENTER_KEY = 13;
@@ -91,7 +97,7 @@ document.querySelector("#serial-input").addEventListener("keyup", event => {
       }
       break;
     case ENTER_KEY:
-      $("#send-btn").click();
+      document.querySelector("#send-btn").click();
       break;
     default:
       count_change_flag = false;
@@ -107,13 +113,15 @@ document.querySelector("#serial-input").addEventListener("keyup", event => {
 });
 
 document.querySelector("#send-btn").addEventListener("click", async () => {
-  const input = $("#serial-input").val();
+  const input = document.querySelector("#serial-input").value;
   if (input !== command_history[command_history.length - 1]) {
     command_history.push(input);
   }
   history_position = 0;
-  term.writeln('\x1b[32m' + input + '\x1b[0m');
-  $("#serial-input").val("");
+  if (flags.get("local-echo-select")) {
+    term.writeln("\x1b[32m" + input + "\x1b[0m");
+  }
+  document.querySelector("#serial-input").value = "";
   await writeToDevice(input);
 });
 
@@ -154,19 +162,16 @@ function generateCommandListHtml(command_list) {
 flags.attach("baudrate", "change", "38400");
 flags.attach("carriage-return-checkbox", "change");
 flags.attach("newline-select", "change", true);
-flags.bind("command-history", (command_list) => {
-  document.querySelector("#command-history").innerHTML = generateCommandListHtml(command_list);
-  console.debug("Command history updated");
-}, []);
-
-$(document).on('click', '.browse', function () {
-  var file = $(this).parent().parent().parent().find('.file');
-  file.trigger('click');
-});
-$(document).on('change', '.file', function () {
-  $(this).parent().find('.form-control')
-    .val($(this).val().replace(/C:\\fakepath\\/i, ''));
-});
+flags.attach("local-echo-select", "change", false);
+flags.bind(
+  "command-history",
+  (command_list) => {
+    document.querySelector("#command-history").innerHTML =
+      generateCommandListHtml(command_list);
+    console.debug("Command history updated");
+  },
+  []
+);
 
 window.onbeforeunload = () => {
   let command_history = flags.get("command-history");
