@@ -17,26 +17,23 @@ class Flags {
     this.model = {};
   }
   //sets localStorage when value is changed
-  setCache(cname, cvalue)
-  {
+  setCache(cname, cvalue) {
     localStorage.setItem(cname, JSON.stringify(cvalue));
   }
-  cachedValueExists(cname)
-  {
-    return (localStorage.getItem(cname) != null) ? true : false;
+  cachedValueExists(cname) {
+    return localStorage.getItem(cname) != null ? true : false;
   }
-  getCache(cname)
-  {
+  getCache(cname) {
     let cached_data = localStorage.getItem(cname);
-    return (cached_data !== "undefined") ? JSON.parse(cached_data) : null;
+    return cached_data !== "undefined" ? JSON.parse(cached_data) : null;
   }
   get(id) {
     return this.model[id]["data"];
   }
   bind(id, update_callback, default_value) {
     this.model[id] = {
-      "data": default_value,
-      "change_event": update_callback,
+      data: default_value,
+      change_event: update_callback,
     };
   }
   attach(id, event_type, default_value, element_callback, update_callback) {
@@ -65,6 +62,7 @@ class Flags {
     // Create a wrapper function that updates the elements property and calls
     // update callback if it exists.
     let input_updater = (value) => {
+      console.log("Input Updater!");
       element[property] = value;
       if (update_callback) {
         update_callback(value, id);
@@ -94,8 +92,10 @@ class Flags {
   teardown() {
     console.debug("Saving flags to LocalStorage!");
     for (var id in this.model) {
-      if (typeof this.model[id]["data"] !== "undefined" &&
-          this.model[id]["data"] !== null) {
+      if (
+        typeof this.model[id]["data"] !== "undefined" &&
+        this.model[id]["data"] !== null
+      ) {
         this.setCache(id, this.model[id]["data"]);
       }
     }
