@@ -90,9 +90,9 @@ function disconnectFromDevice() {
   if (reader && reader.cancel) {
     reader.cancel();
   }
-  $("#connect")
-    .addClass("btn-outline-success")
-    .removeClass("btn-outline-danger")
+  $("#connect-btn")
+    .removeClass("red-txt")
+    .addClass("green-txt")
     .text("Connect");
   $("#baudrate").prop("disabled", false);
   $("#dtr-checkbox").prop("disabled", true);
@@ -143,9 +143,9 @@ document.querySelector("#connect-btn").addEventListener("click", async () => {
       await port.open({ baudRate });
       await port.setSignals({ dataTerminalReady: false, requestToSend: false });
       device_connected = true;
-      $("#connect")
-        .removeClass("btn-outline-success")
-        .addClass("btn-outline-danger")
+      $("#connect-btn")
+        .removeClass("green-txt")
+        .addClass("red-txt")
         .text("Disconnect");
       $("#baudrate").prop("disabled", true);
       $("#dtr-checkbox").prop("disabled", false);

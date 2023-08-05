@@ -98,6 +98,15 @@ dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.601);
 }
 
+.green-txt {
+  color: lime;
+}
+
+.red-txt {
+  color: red;
+  box-shadow: 0 2px 4px 0 rgb(255, 0, 0), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1) !important;
+}
+
 .flex-spaced {
   display: flex;
   justify-content: space-between;
@@ -132,9 +141,7 @@ dialog::backdrop {
 }
 
 #terminal {
-  height: 80vh;
+  height: 100%;
+  margin: 0 1rem;
 }
 
-#connect-btn {
-  color: lime;
-}

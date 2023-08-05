@@ -20,6 +20,9 @@ let term = new Terminal({
   tabStopWidth: 1,
   lineHeight: 1,
   fontSize: 18,
+  theme: {
+    background: "#373737",
+  },
 });
 
 term.open(document.getElementById('terminal'));
