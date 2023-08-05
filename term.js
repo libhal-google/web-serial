@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+let input = "";
 let term = new Terminal({
   fontFamily: "Andale Mono, courier-new, courier, monospace",
   scrollback: 1024 * 100,
@@ -20,6 +20,9 @@ let term = new Terminal({
   tabStopWidth: 1,
   lineHeight: 1,
   fontSize: 18,
+  theme: {
+    green: "lime",
+  }
 });
 
 term.open(document.getElementById('terminal'));
@@ -28,42 +31,51 @@ term.loadAddon(fit_addon);
 term.loadAddon(new WebLinksAddon.WebLinksAddon());
 fit_addon.fit();
 
-input = "";
+window.addEventListener("resize", () => {
+  fit_addon.fit();
+});
+
 term.onData(function (data) {
+  const ENTER = "\r";
+  const BACKSPACE = "\x7f";
+  const UP = "\x1b[A";
+  const DOWN = "\x1b[B";
+  const LEFT = "\x1b[D";
+  const RIGHT = "\x1b[C";
+
   switch (data) {
-    case "\r":
-      writeToDevice();
-      term.write("\r\n");
+    case ENTER:
+      handleSubmit();
       break;
-    case "\x7f":
-      handleBackspace();
+    case BACKSPACE:
+      handleDelete();
       break;
-    // Ignore arrow keys
-    case "\x1b[A":
-    case "\x1b[B":
-    case "\x1b[C":
-    case "\x1b[D":
-      break;
+    case UP:
+    case DOWN:
+    case LEFT:
+    case RIGHT:
+      break; // TODO: Handle arrow keys like #serial-input
     default:
       input += data;
-      term.write(data);
+      term.write('\x1b[32m' + data + '\x1b[0m');
       break;
   }
 });
 
-function handleBackspace() {
+function clearTerminal() {
+  input = "";
+  term.reset();
+}
+
+function handleDelete() {
   input = input.slice(0, -1);
   term.write("\b \b");
 }
 
-async function writeToDevice() {
-  let cr = flags.get("carriage-return-select") ? "\r" : "";
-  let nl = flags.get("newline-select") ? "\n" : "";
-  let payload = `${input}${cr}${nl}`
+async function handleSubmit() {
   if (port) {
-    const writer = port.writable.getWriter();
-    await writer.write(encoder.encode(payload));
-    writer.releaseLock();
+    await writeToDevice(input);
   }
   input = "";
+  term.writeln("");
 }
