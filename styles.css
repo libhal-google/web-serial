@@ -63,13 +63,17 @@ button {
   padding: var(--padding);
   background-color: inherit;
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.41), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 1px 0 rgba(255, 255, 255, 0.41), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1);
 }
 
-button:hover,
+button:hover {
+  cursor: pointer;
+  box-shadow: 0 2px 1px 0 var(--accent), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1) !important;
+}
+
 input[type="checkbox"]:not(:disabled):hover {
   cursor: pointer;
-  box-shadow: 0 2px 4px 0 var(--accent), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0px 5px 0 var(--accent), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1) !important;
 }
 
 input,
@@ -147,4 +151,3 @@ dialog::backdrop {
   height: 78vh;
   margin: 0 var(--padding);
 }
-

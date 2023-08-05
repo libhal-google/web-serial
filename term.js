@@ -56,11 +56,14 @@ term.onData(function (data) {
     case RIGHT:
       break; // TODO: Handle arrow keys like #serial-input
     default:
-      input += data;
-      term.write('\x1b[32m' + data + '\x1b[0m');
+      if(flags.get("local-echo-select")) {
+        term.write('\x1b[32m' + data + '\x1b[0m');
+      }
+      writeCharacterToDevice(data);
       break;
   }
 });
+
 
 function clearTerminal() {
   input = "";

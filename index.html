@@ -37,6 +37,9 @@
       <label>RTS
         <input id="rts-checkbox" type="checkbox" disabled>
       </label>
+      <label>Local Echo
+        <input id="local-echo-select" type="checkbox">
+      </label>
       <button id="options-btn" type="button">Options</button>
       <button id="help-btn" type="button">Help</button>
       <button id="clear-btn" type="button">Clear Console</button>
@@ -75,10 +78,6 @@
       <button id="close-options-dialog-btn" class="close-btn" type="button">&times;</button>
     </div>
     <div>
-      <h3>Themes</h3>
-      <label>Dark Theme
-        <input id="dark-theme-checkbox" type="checkbox" checked>
-      </label>
       <h3>Serial</h3>
       <button id="clear-history-btn">Clear Serial History</button>
     </div>
@@ -107,6 +106,10 @@
         <li>CR checked appends \r to your serial data</li>
         <li>NL checked appends \n to your serial data</li>
       </ul>
+      <h3>Local Echo</h3>
+      <ul>
+        <p>Select this option to see all of the data typed or sent to the device over the terminal. Will show up in green.</p>
+      </ul>
     </div>
   </dialog>
 
@@ -123,12 +126,6 @@
     </div>
   </dialog>
 
-  <!-- Placed at the end of the document so the pages load faster -->
-  <script src="third_party/bootstrap-4.0.0-alpha.6/js/jquery.min.js"></script>
-  <script src="third_party/bootstrap-4.0.0-alpha.6/js/tether.min.js"></script>
-  <script src="third_party/bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>
-  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="third_party/bootstrap-4.0.0-alpha.6/js/ie10-viewport-bug-workaround.js"></script>
   <script src="third_party/xterm/xterm.js"></script>
   <script src="third_party/xterm/xterm-addon-fit.js"></script>
   <script src="third_party/xterm/xterm-addon-web-links.js"></script>
