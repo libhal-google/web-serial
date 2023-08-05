@@ -19,11 +19,12 @@ let term = new Terminal({
   cursorBlink: true,
   tabStopWidth: 1,
   lineHeight: 1,
-  fontSize:20,
+  fontSize: 20,
   theme: {
     cursor: "lime",
     cursorAccent: "lime",
     selectionForeground: "lime",
+    green: "lime",
   }
 });
 
@@ -33,43 +34,49 @@ term.loadAddon(fit_addon);
 term.loadAddon(new WebLinksAddon.WebLinksAddon());
 fit_addon.fit();
 
+window.addEventListener("resize", () => {
+  fit_addon.fit();
+});
+
 input = "";
 term.onData(function (data) {
+  const ENTER = "\r";
+  const BACKSPACE = "\x7f";
+  const UP = "\x1b[A";
+  const DOWN = "\x1b[B";
+  const LEFT = "\x1b[D";
+  const RIGHT = "\x1b[C";
+
   switch (data) {
-    case "\r":
-      handleEnter();
+    case ENTER:
+      handleSubmit();
       term.write("\r\n");
       break;
-    case "\x7f":
-      handleBackspace();
+    case BACKSPACE:
+      handleDelete();
       break;
-    // Ignore arrow keys
-    case "\x1b[A":
-    case "\x1b[B":
-    case "\x1b[C":
-    case "\x1b[D":
-      break;
+    case UP:
+    case DOWN:
+    case LEFT:
+    case RIGHT:
+      break; // TODO: Handle arrow keys like #serial-input
     default:
       input += data;
-      term.write(data);
+      term.write('\x1b[32m' + data + '\x1b[0m');
       break;
   }
 });
 
-function handleBackspace() {
+function clearTerminal() {
+  term.clear();
+}
+
+function handleDelete() {
   input = input.slice(0, -1);
   term.write("\b \b");
 }
 
-// Writes to the device
-async function handleEnter() {
-  let cr = flags.get("carriage-return-checkbox") ? "\r" : "";
-  let nl = flags.get("newline-select") ? "\n" : "";
-  let payload = `${input}${cr}${nl}`
-  if (port) {
-    const writer = port.writable.getWriter();
-    await writer.write(encoder.encode(payload));
-    writer.releaseLock();
-  }
+async function handleSubmit() {
+  await writeToDevice(input);
   input = "";
 }

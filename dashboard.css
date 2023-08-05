@@ -150,5 +150,6 @@ dialog::backdrop {
 }
 
 #terminal {
+  height: 78vh;
   margin: 0 var(--padding);
 }
