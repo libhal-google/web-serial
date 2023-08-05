@@ -75,7 +75,6 @@ input[type="checkbox"]:not(:disabled):hover {
   box-shadow: 0 2px 4px 0 rgb(0, 255, 0), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1) !important;
 }
 
-
 input,
 #baudrate-label {
   color: black;
@@ -87,7 +86,7 @@ input,
 }
 
 input:focus {
-  outline: 1px solid var(--accent);
+  outline: none;
 }
 
 dialog {
@@ -98,13 +97,8 @@ dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.601);
 }
 
-.green-txt {
-  color: lime;
-}
-
-.red-txt {
-  color: red;
-  box-shadow: 0 2px 4px 0 rgb(255, 0, 0), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1) !important;
+.orange-btn {
+  color: orange !important;
 }
 
 .flex-spaced {
@@ -140,8 +134,21 @@ dialog::backdrop {
   flex-grow: 1;
 }
 
-#terminal {
-  height: 100%;
-  margin: 0 1rem;
+#connect-btn {
+  color: lime;
 }
 
+#content-scroll-wrap {
+  position: relative;
+  height: 100%;
+}
+#content-scroll {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  overflow: auto;
+}
+
+#terminal {
+  margin: 0 var(--padding);
+}

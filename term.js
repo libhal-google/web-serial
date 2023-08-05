@@ -19,10 +19,12 @@ let term = new Terminal({
   cursorBlink: true,
   tabStopWidth: 1,
   lineHeight: 1,
-  fontSize: 18,
+  fontSize:20,
   theme: {
-    background: "#373737",
-  },
+    cursor: "lime",
+    cursorAccent: "lime",
+    selectionForeground: "lime",
+  }
 });
 
 term.open(document.getElementById('terminal'));
@@ -35,7 +37,7 @@ input = "";
 term.onData(function (data) {
   switch (data) {
     case "\r":
-      writeToDevice();
+      handleEnter();
       term.write("\r\n");
       break;
     case "\x7f":
@@ -59,7 +61,8 @@ function handleBackspace() {
   term.write("\b \b");
 }
 
-async function writeToDevice() {
+// Writes to the device
+async function handleEnter() {
   let cr = flags.get("carriage-return-checkbox") ? "\r" : "";
   let nl = flags.get("newline-select") ? "\n" : "";
   let payload = `${input}${cr}${nl}`

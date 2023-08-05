@@ -27,58 +27,6 @@ const collator = new Intl.Collator(undefined, {
   sensitivity: "base"
 });
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-//===================================
-//  Parsers & Generator Functions
-function GenerateConnectionId(length) {
-  return Math.random()
-    .toString(36)
-    .slice(2);
-}
-function generateDropDownList(port_info) {
-  if (port_info.length == 0) {
-    return '<option value="-1" selected="selected">No Serial Ports</option>';
-  }
-  // Convert port_info array into an array of serial port paths
-  const paths = port_info.map(port => {
-    return port.path;
-  });
-  // Sort using numeric language sensitive string comparison.
-  // This will result in a list like so:
-  //    ["COM1", "COM2", "COM22", "COM100", "COM120"]
-  //
-  // vs ES6's default string sort which would result in:
-  //
-  //    ["COM1", "COM100", "COM120", "COM2", "COM22"]
-  //
-  paths.sort(collator.compare);
-  console.debug(port_info, paths);
-  var selected = document.querySelector("#device-select").value;
-  let html = "";
-  for (let i = 0; i < paths.length; i++) {
-    html += `
-      <option value="${paths[i]}"
-      ${paths[i] === selected ? 'selected="selected"' : ""}>
-          ${paths[i]}
-      </option>`;
-  }
-  return html;
-}
-
-function generateCommandListHtml(command_list) {
-  if (!command_list) {
-    return "";
-  }
-
-  let html = "";
-  for (let command of command_list) {
-    html += `<option value="${command}" />`;
-  }
-  return html;
-}
-
 //===================================
 //  Web Serial
 //===================================
@@ -90,10 +38,7 @@ function disconnectFromDevice() {
   if (reader && reader.cancel) {
     reader.cancel();
   }
-  $("#connect-btn")
-    .removeClass("red-txt")
-    .addClass("green-txt")
-    .text("Connect");
+  $("#connect-btn").removeClass("orange-btn").text("Connect");
   $("#baudrate").prop("disabled", false);
   $("#dtr-checkbox").prop("disabled", true);
   $("#rts-checkbox").prop("disabled", true);
@@ -129,9 +74,6 @@ async function readFromDevice(port) {
   await port.close();
 }
 
-//===================================
-//  Button Click Listeners
-//===================================
 document.querySelector("#connect-btn").addEventListener("click", async () => {
   if (device_connected) {
     disconnectFromDevice();
@@ -143,10 +85,7 @@ document.querySelector("#connect-btn").addEventListener("click", async () => {
       await port.open({ baudRate });
       await port.setSignals({ dataTerminalReady: false, requestToSend: false });
       device_connected = true;
-      $("#connect-btn")
-        .removeClass("green-txt")
-        .addClass("red-txt")
-        .text("Disconnect");
+      $("#connect-btn").addClass("orange-btn").text("Disconnect");
       $("#baudrate").prop("disabled", true);
       $("#dtr-checkbox").prop("disabled", false);
       $("#rts-checkbox").prop("disabled", false);
@@ -206,27 +145,23 @@ document.querySelector("#serial-input").addEventListener("keyup", event => {
 });
 
 document.querySelector("#send-btn").addEventListener("click", async () => {
-  let payload = $("#serial-input").val();
+  let serial_input = $("#serial-input").val();
   $("#serial-input").val("");
-
-  if (payload !== command_history[command_history.length - 1]) {
-    command_history.push(payload);
+  if (serial_input !== command_history[command_history.length - 1]) {
+    command_history.push(serial_input);
   }
-
   history_position = 0;
 
   let cr = flags.get("carriage-return-checkbox") ? "\r" : "";
   let nl = flags.get("newline-select") ? "\n" : "";
-
-  console.log(`${payload}${cr}${nl}\n\n\n`);
+  payload = `${serial_input}${cr}${nl}`
 
   const encoder = new TextEncoder();
   const writer = port.writable.getWriter();
-  await writer.write(encoder.encode(`${payload}${cr}${nl}`));
+  await writer.write(encoder.encode(payload));
   writer.releaseLock();
 });
 
-//Clear Button Code
 document.querySelector("#clear-btn").addEventListener("click", () => {
   // [0m = Reset color codes
   // [3J = Remove terminal buffer
@@ -235,18 +170,11 @@ document.querySelector("#clear-btn").addEventListener("click", () => {
   term.write("\x1b[0m\x1b[3J\x1b[2J\x1b[H");
 });
 
-//Command History Code
-document
-  .querySelector("#clear-cache-modal-open")
-  .addEventListener("click", () => {
-    $("#clear-cache-modal").modal("show");
-  });
-
-document.querySelector("#clear-command-cache").addEventListener("click", () => {
+document.querySelector("#clear-history-btn").addEventListener("click", () => {
   flags.set("command-history", []);
+  options_dialog.close();
 });
 
-//Serial File Upload
 document.querySelector("#serial-upload").addEventListener("click", () => {
   let serial_file = document.querySelector("#serial-file").files;
   if (!device_connected) {
@@ -267,43 +195,29 @@ document.querySelector("#serial-upload").addEventListener("click", () => {
     await writer.write(reader.result);
     writer.releaseLock();
   };
-
-  // Initiate reading of uploaded file
   reader.readAsArrayBuffer(file);
 });
 
-//===================================
-//  Initialize everything
-//===================================
-
-function ApplyDarkTheme(dark_theme_active) {
-  console.debug("Dark theme: ", dark_theme_active);
-  let head = document.querySelector("head");
-  if (dark_theme_active) {
-    head.innerHTML += `<link
-      rel="stylesheet"
-      type="text/css"
-      id="dark-style"
-      href="static/lib/themes/dark-theme.css">`;
-  } else {
-    let dark_style = document.querySelector("#dark-style");
-    if (dark_style) {
-      head.removeChild(dark_style);
-    }
+function generateCommandListHtml(command_list) {
+  if (!command_list) {
+    return "";
   }
-}
 
-function commandHistoryUpdateHandler(command_list) {
-  let command_history_element = document.querySelector("#command-history");
-  command_history_element.innerHTML = generateCommandListHtml(command_list);
-  console.debug("Command history updated");
+  let html = "";
+  for (let command of command_list) {
+    html += `<option value="${command}" />`;
+  }
+  return html;
 }
 
 flags.attach("baudrate", "change", "38400");
 flags.attach("carriage-return-checkbox", "change");
 flags.attach("newline-select", "change", true);
-flags.attach("dark-theme", "change", false, ApplyDarkTheme, ApplyDarkTheme);
-flags.bind("command-history", commandHistoryUpdateHandler, []);
+flags.bind("command-history", (command_list) => {
+  document.querySelector("#command-history").innerHTML = generateCommandListHtml(command_list);
+  console.debug("Command history updated");
+}, []);
+
 
 function main() {
   flags.initialize();
@@ -326,8 +240,10 @@ window.onbeforeunload = () => {
   flags.teardown();
   return null;
 };
+
 window.addEventListener("resize", () => {
   fit_addon.fit();
 });
+
 // Entry point of software start
 window.addEventListener("load", main);
