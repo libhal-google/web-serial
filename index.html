@@ -23,14 +23,14 @@
   <meta name="author" content="libhal">
   <meta name="description" content="Web Serial Terminal for embedded systems and other serial devices.">
   <title>Web Serial</title>
-  <link rel="stylesheet" type="text/css" href="dashboard.css">
+  <link rel="stylesheet" type="text/css" href="styles.css">
   <link rel="stylesheet" type="text/css" href="third_party/xterm/xterm.css">
 </head>
 
-<body>
+<body class="grid">
   <nav class="flex-spaced">
-    <h1 class="accent-color">Web Serial<sub>v1.0</sub></h1>
-    <div class="group">
+    <h1>Web Serial <sub>v2.0</sub></h1>
+    <div class="btn-group">
       <label>DTR
         <input id="dtr-checkbox" type="checkbox" disabled>
       </label>
@@ -38,7 +38,7 @@
         <input id="rts-checkbox" type="checkbox" disabled>
       </label>
       <button id="options-btn" type="button">Options</button>
-      <button id="help-btn" type="button" data-toggle="modal" data-target="#helpModal">Help</button>
+      <button id="help-btn" type="button">Help</button>
       <button id="clear-btn" type="button">Clear Console</button>
       <label id="baudrate-label">
         <input id="baudrate" type="number" value="38400">
@@ -52,8 +52,8 @@
     <div id="serial-group" class="flex-spaced">
       <input id="serial-input" type="text" list="command-history" placeholder="Write serial data here...">
       <datalist id="command-history"></datalist>
-      <div class="group">
-        <button id="upload-btn" type="button" data-toggle="modal" data-target="#serial-file-modal">
+      <div class="btn-group">
+        <button id="upload-btn" type="button">
           Upload File
         </button>
         <label>CR
@@ -72,7 +72,7 @@
   <dialog id="options-dialog">
     <div class="flex-spaced">
       <h2>Options</h2>
-      <button id="close-options-dialog-btn" type="button">&times;</button>
+      <button id="close-options-dialog-btn" class="close-btn" type="button">&times;</button>
     </div>
     <div>
       <h3>Themes</h3>
@@ -87,7 +87,7 @@
   <dialog id="help-dialog">
     <div class="flex-spaced">
       <h2>Help</h2>
-      <button id="close-help-dialog-btn" type="button">&times;</button>
+      <button id="close-help-dialog-btn" class="close-btn" type="button">&times;</button>
     </div>
     <div>
       <h3>Connecting Your Device</h3>
@@ -113,18 +113,16 @@
   <dialog id="upload-dialog">
     <div class="flex-spaced">
       <h2>Upload File</h2>
-      <button id="close-upload-dialog-btn" type="button">&times;</button>
+      <button id="close-upload-dialog-btn" class="close-btn" type="button">&times;</button>
     </div>
     <div class="flex-spaced">
       <input id="serial-file" type="file" accept=".txt, .hex" class="" />
-      <div class="group">
+      <div class="btn-group">
         <button id="serial-upload" type="submit">Upload</button>
       </div>
     </div>
   </dialog>
 
-  <!-- Bootstrap core JavaScript
-    ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="third_party/bootstrap-4.0.0-alpha.6/js/jquery.min.js"></script>
   <script src="third_party/bootstrap-4.0.0-alpha.6/js/tether.min.js"></script>

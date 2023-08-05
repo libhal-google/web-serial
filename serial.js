@@ -17,7 +17,7 @@ async function connectToDevice() {
         $("#baudrate").prop("disabled", true);
         $("#dtr-checkbox").prop("disabled", false);
         $("#rts-checkbox").prop("disabled", false);
-        readFromDevice(port);
+        readFromDevice();
     } catch (error) {
         const notFoundText = "NotFoundError: No port selected by the user.";
         const userCancelledConnecting = String(error) === notFoundText;
@@ -27,7 +27,7 @@ async function connectToDevice() {
     }
 }
 
-async function readFromDevice(port) {
+async function readFromDevice() {
     while (port.readable && device_connected) {
         reader = port.readable.getReader();
         try {
@@ -42,9 +42,7 @@ async function readFromDevice(port) {
             }
         } catch (error) {
             disconnectFromDevice();
-            const red = '\x1b[31m';
-            const resetColor = '\x1b[0m';
-            term.write(red + "Exiting serial monitor due to error: " + error + resetColor);
+            console.error(error);
         } finally {
             reader.releaseLock();
         }
@@ -61,23 +59,12 @@ async function writeToDevice(input) {
         try {
             await writer.write(encoder.encode(payload));
         } catch (error) {
-            const red = '\x1b[31m';
-            const resetColor = '\x1b[0m';
-            term.write(red + "Exiting serial monitor due to error: " + error + resetColor);
+            console.error(error);
         } finally {
             writer.releaseLock();
         }
     }
 }
-
-async function toggleDtr() {
-    if (port) {
-        const dtr = $("#dtr-checkbox").prop("checked");
-        await port.setSignals({ dataTerminalReady: dtr });
-    }
-}
-
-
 
 function disconnectFromDevice() {
     device_connected = false;

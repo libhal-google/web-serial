@@ -21,6 +21,8 @@ const collator = new Intl.Collator(undefined, {
   sensitivity: "base"
 });
 
+window.addEventListener("load", flags.initialize());
+
 document.querySelector("#options-btn").addEventListener("click", () => {
   document.querySelector("#options-dialog").showModal();
 });
@@ -63,10 +65,10 @@ document.querySelector("#rts-checkbox").addEventListener("click", async () => {
   await port.setSignals({ requestToSend });
 });
 
-
-
 document.querySelector("#clear-history-btn").addEventListener("click", () => {
-  flags.set("command-history", []);
+  command_history = [];
+  history_position = 0;
+  document.querySelector("#serial-input").value = "";
   document.querySelector("#options-dialog").close();
 });
 
@@ -95,7 +97,7 @@ document.querySelector("#serial-input").addEventListener("keyup", event => {
       count_change_flag = false;
       break;
   }
-  
+
   if (count_change_flag) {
     let command = command_history[command_history.length - history_position];
     if (command) {
@@ -105,14 +107,14 @@ document.querySelector("#serial-input").addEventListener("keyup", event => {
 });
 
 document.querySelector("#send-btn").addEventListener("click", async () => {
-  let serial_input = $("#serial-input").val();
-  if (serial_input !== command_history[command_history.length - 1]) {
-    command_history.push(serial_input);
+  const input = $("#serial-input").val();
+  if (input !== command_history[command_history.length - 1]) {
+    command_history.push(input);
   }
   history_position = 0;
-  term.write('\x1b[32m' + serial_input + "\r\n" + '\x1b[0m');
+  term.writeln('\x1b[32m' + input + '\x1b[0m');
   $("#serial-input").val("");
-  await writeToDevice(serial_input);
+  await writeToDevice(input);
 });
 
 document.querySelector("#serial-upload").addEventListener("click", () => {
@@ -157,11 +159,6 @@ flags.bind("command-history", (command_list) => {
   console.debug("Command history updated");
 }, []);
 
-
-function main() {
-  flags.initialize();
-}
-
 $(document).on('click', '.browse', function () {
   var file = $(this).parent().parent().parent().find('.file');
   file.trigger('click');
@@ -179,6 +176,3 @@ window.onbeforeunload = () => {
   flags.teardown();
   return null;
 };
-
-// Entry point of software start
-window.addEventListener("load", main);

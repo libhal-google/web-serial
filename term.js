@@ -12,18 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+let input = "";
 let term = new Terminal({
   fontFamily: "Andale Mono, courier-new, courier, monospace",
   scrollback: 1024 * 100,
   cursorBlink: true,
   tabStopWidth: 1,
   lineHeight: 1,
-  fontSize: 20,
+  fontSize: 18,
   theme: {
-    cursor: "lime",
-    cursorAccent: "lime",
-    selectionForeground: "lime",
     green: "lime",
   }
 });
@@ -38,7 +35,6 @@ window.addEventListener("resize", () => {
   fit_addon.fit();
 });
 
-input = "";
 term.onData(function (data) {
   const ENTER = "\r";
   const BACKSPACE = "\x7f";
@@ -50,7 +46,6 @@ term.onData(function (data) {
   switch (data) {
     case ENTER:
       handleSubmit();
-      term.write("\r\n");
       break;
     case BACKSPACE:
       handleDelete();
@@ -68,7 +63,8 @@ term.onData(function (data) {
 });
 
 function clearTerminal() {
-  term.clear();
+  input = "";
+  term.reset();
 }
 
 function handleDelete() {
@@ -77,6 +73,9 @@ function handleDelete() {
 }
 
 async function handleSubmit() {
-  await writeToDevice(input);
+  if (port) {
+    await writeToDevice(input);
+  }
   input = "";
+  term.writeln("");
 }

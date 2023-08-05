@@ -18,8 +18,8 @@
   --accent: lime;
   --primary: #3b3c3d;
   --secondary: white;
-  --tertiary: linear-gradient(90deg, black 0%, var(--primary) 100%);
   --padding: .6rem;
+  --border-radius: 5px;
 }
 
 * {
@@ -28,26 +28,29 @@
 }
 
 html {
-  color-scheme: light dark;
+  color-scheme: dark;
 }
 
 body {
   margin: 0;
   background-color: black;
+  padding: 0 var(--padding);
 }
 
 nav {
-  background-color: black;
   color: var(--secondary);
-  padding: 0 var(--padding);
   border-bottom: 1px solid var(--primary);
 }
 
 h1 {
   font-family: monospace;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: var(--accent);
-  text-shadow: 1px 1px 2px black, 0 0 1em lime, 0 0 0.2em lime;
+  text-shadow: 1px 1px 2px black, 0 0 1em var(--accent), 0 0 0.2em var(--accent);
+}
+
+h2 {
+  font-size: 1.3rem;
 }
 
 h3 {
@@ -55,24 +58,19 @@ h3 {
   border-bottom: var(--primary) 1px solid;
 }
 
-main {
-  padding: 0 var(--padding);
-
-}
-
 button {
-  padding: var(--padding);
   border: none;
-  border-radius: 5px;
-  background-color: inherit;
+  border-radius: var(--border-radius);
   color: var(--secondary);
+  padding: var(--padding);
+  background-color: inherit;
   box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.41), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1);
 }
 
 button:hover,
 input[type="checkbox"]:not(:disabled):hover {
   cursor: pointer;
-  box-shadow: 0 2px 4px 0 rgb(0, 255, 0), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 2px 4px 0 var(--accent), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1) !important;
 }
 
 input,
@@ -81,7 +79,7 @@ input,
   padding: var(--padding);
   accent-color: var(--accent);
   background-color: var(--secondary);
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   border: none;
 }
 
@@ -90,15 +88,30 @@ input:focus {
 }
 
 dialog {
-  padding-top: calc(var(--padding) * .5);
+  border: none;
+  border-radius: var(--border-radius);
+  box-shadow: 1px 1px 2px black, 0 0 1em gray, 0 0 0.2em gray;
 }
 
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.601);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .orange-btn {
   color: orange !important;
+}
+
+.close-btn{
+  position: absolute;
+  right: 0;
+  margin: 0;
+  font-size: 1.5rem;
+  box-shadow: none;
+}
+
+.close-btn:hover {
+  color: var(--accent);
+  box-shadow: none !important;
 }
 
 .flex-spaced {
@@ -112,7 +125,7 @@ dialog::backdrop {
   margin: .25rem;
 }
 
-.group>* {
+.btn-group>* {
   margin: .25rem;
 }
 
@@ -122,34 +135,17 @@ dialog::backdrop {
   margin-right: 0;
 }
 
-#baudrate-label {
-  padding: inherit 0;
-}
-
-#serial-group {
-  background-color: black;
-}
 
 #serial-input {
   flex-grow: 1;
 }
 
 #connect-btn {
-  color: lime;
-}
-
-#content-scroll-wrap {
-  position: relative;
-  height: 100%;
-}
-#content-scroll {
-  position: absolute;
-  top: 0; bottom: 0;
-  left: 0; right: 0;
-  overflow: auto;
+  color: var(--accent);
 }
 
 #terminal {
   height: 78vh;
   margin: 0 var(--padding);
 }
+
