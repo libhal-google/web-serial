@@ -18,10 +18,19 @@ let device_connected = false;
 const decoder = new TextDecoder("utf-8");
 const encoder = new TextEncoder("utf-8");
 
+function getBaudRate() {
+  let baudrate = document.querySelector("#baudrate").value;
+  if (baudrate === "custom") {
+    baudrate = document.querySelector("#baudrate_custom").value;
+  }
+  return Number(baudrate);
+}
+
 async function connectToDevice() {
   try {
     port = await navigator.serial.requestPort();
-    const baud_rate = Number(document.querySelector("#baudrate").value);
+
+    const baud_rate = getBaudRate();
     await port.open({ baudRate: baud_rate });
     await port.setSignals({ dataTerminalReady: false, requestToSend: false });
     device_connected = true;

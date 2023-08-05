@@ -21,8 +21,6 @@ const collator = new Intl.Collator(undefined, {
   sensitivity: "base",
 });
 
-window.addEventListener("load", flags.initialize());
-
 document.querySelector("#options-btn").addEventListener("click", () => {
   document.querySelector("#options-dialog").showModal();
 });
@@ -112,6 +110,16 @@ document.querySelector("#serial-input").addEventListener("keyup", (event) => {
   }
 });
 
+document.querySelector("#baudrate").addEventListener("change", function () {
+  var baudrate_custom = document.querySelector("#baudrate_custom");
+
+  if (this.value === "custom") {
+    baudrate_custom.style.display = "";
+  } else {
+    baudrate_custom.style.display = "none";
+  }
+});
+
 document.querySelector("#send-btn").addEventListener("click", async () => {
   const input = document.querySelector("#serial-input").value;
   if (input !== command_history[command_history.length - 1]) {
@@ -159,7 +167,7 @@ function generateCommandListHtml(command_list) {
   return html;
 }
 
-flags.attach("baudrate", "change", "38400");
+flags.attach("baudrate", "change", "115200");
 flags.attach("carriage-return-checkbox", "change");
 flags.attach("newline-select", "change", true);
 flags.attach("local-echo-select", "change", false);
@@ -172,6 +180,18 @@ flags.bind(
   },
   []
 );
+
+window.addEventListener("load", () => {
+  flags.initialize();
+  var dropdown = document.querySelector("#baudrate");
+
+  var event = new Event("change", {
+    bubbles: true,
+    cancelable: true,
+  });
+
+  dropdown.dispatchEvent(event);
+});
 
 window.onbeforeunload = () => {
   let command_history = flags.get("command-history");

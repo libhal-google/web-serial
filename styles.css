@@ -22,9 +22,19 @@
   --border-radius: 5px;
 }
 
+@font-face {
+  font-family: 'VT323';
+  src: url(third_party/google_fonts/VT323/VT323-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url(third_party/google_fonts/Press_Start_2P/PressStart2P-Regular.ttf);
+}
+
 * {
-  font-family: "Andale Mono", 'Courier New', Courier, monospace;
-  font-size: 1rem;
+  font-family: 'VT323', monospace;
+  font-size: 1.05rem;
 }
 
 html {
@@ -43,9 +53,16 @@ nav {
 }
 
 h1 {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   color: var(--accent);
   text-shadow: 1px 1px 2px black, 0 0 1em var(--accent), 0 0 0.2em var(--accent);
+  font-family: 'Press Start 2P', monospace;
+}
+h1 sub {
+  font-size: 0.60rem;
+  color: var(--accent);
+  text-shadow: 1px 1px 2px black, 0 0 1em var(--accent), 0 0 0.2em var(--accent);
+  font-family: 'Press Start 2P', monospace;
 }
 
 h2 {
@@ -133,11 +150,9 @@ dialog::backdrop {
 }
 
 #baudrate {
-  width: 8ch;
   margin-right: 0;
   padding-right: 0;
 }
-
 
 #serial-input {
   flex-grow: 1;
