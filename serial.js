@@ -1,10 +1,8 @@
+let port;
+let reader;
 let device_connected = false;
-
 const decoder = new TextDecoder("utf-8");
 const encoder = new TextEncoder("utf-8");
-
-let reader;
-let port;
 
 async function connectToDevice() {
     try {
@@ -54,6 +52,7 @@ async function writeToDevice(input) {
     let cr = flags.get("carriage-return-checkbox") ? "\r" : "";
     let nl = flags.get("newline-select") ? "\n" : "";
     const payload = `${input}${cr}${nl}`
+
     if (port.writable) {
         const writer = port.writable.getWriter();
         try {

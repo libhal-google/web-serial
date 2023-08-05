@@ -43,7 +43,6 @@ nav {
 }
 
 h1 {
-  font-family: monospace;
   font-size: 1.6rem;
   color: var(--accent);
   text-shadow: 1px 1px 2px black, 0 0 1em var(--accent), 0 0 0.2em var(--accent);
@@ -60,10 +59,10 @@ h3 {
 
 button {
   border: none;
-  border-radius: var(--border-radius);
   color: var(--secondary);
   padding: var(--padding);
   background-color: inherit;
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.41), 0 2.5rem 5rem 0 rgba(255, 255, 255, 0.1);
 }
 
@@ -75,12 +74,12 @@ input[type="checkbox"]:not(:disabled):hover {
 
 input,
 #baudrate-label {
-  color: black;
+  border: none;
+  color: var(--primary);
   padding: var(--padding);
   accent-color: var(--accent);
   background-color: var(--secondary);
   border-radius: var(--border-radius);
-  border: none;
 }
 
 input:focus {
@@ -102,11 +101,11 @@ dialog::backdrop {
 }
 
 .close-btn{
-  position: absolute;
   right: 0;
   margin: 0;
-  font-size: 1.5rem;
   box-shadow: none;
+  font-size: 1.5rem;
+  position: absolute;
 }
 
 .close-btn:hover {
@@ -116,9 +115,9 @@ dialog::backdrop {
 
 .flex-spaced {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .flex-spaced>* {
@@ -131,8 +130,8 @@ dialog::backdrop {
 
 #baudrate {
   width: 8ch;
-  padding-right: 0;
   margin-right: 0;
+  padding-right: 0;
 }
 
 
