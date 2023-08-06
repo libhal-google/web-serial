@@ -111,12 +111,12 @@ document.querySelector("#serial-input").addEventListener("keyup", (event) => {
 });
 
 document.querySelector("#baudrate").addEventListener("change", function () {
-  var baudrate_custom = document.querySelector("#baudrate_custom");
-
+  const baudrate_input = document.querySelector("#baudrate-input");
   if (this.value === "custom") {
-    baudrate_custom.style.display = "";
+    baudrate_input.hidden = false;
+    baudrate_input.focus();
   } else {
-    baudrate_custom.style.display = "none";
+    baudrate_input.hidden = true;
   }
 });
 

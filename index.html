@@ -51,23 +51,20 @@
         <button id="options-btn" type="button">Options</button>
         <button id="help-btn" type="button">Help</button>
         <button id="clear-btn" type="button">Clear Console</button>
-        baudrate
-        <select id="baudrate">
-          <option value="9600">9600</option>
-          <option value="38400">38400</option>
-          <option value="115200">115200</option>
-          <option value="512000">512000</option>
-          <option value="1000000">1000000</option>
-          <option value="2000000">2000000</option>
-          <option value="3000000">3000000</option>
-          <option value="custom">custom</option>
-        </select>
-        <input
-          type="text"
-          id="baudrate_custom"
-          placeholder="baud"
-          style="display: none; width: 12ch"
-        />
+        <div class="custom-dropdown-input-selector">
+          <label for="baudrate">baudrate</label>
+          <input id="baudrate-input" type="number" hidden />
+          <select id="baudrate" class="custom-dropdown-selector">
+            <option value="9600">9600</option>
+            <option value="38400">38400</option>
+            <option value="115200">115200</option>
+            <option value="512000">512000</option>
+            <option value="1000000">1000000</option>
+            <option value="2000000">2000000</option>
+            <option value="3000000">3000000</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
         <button id="connect-btn" type="button">Connect</button>
       </div>
     </nav>
