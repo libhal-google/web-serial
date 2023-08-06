@@ -96,7 +96,7 @@ input[type="checkbox"]:not(:disabled):hover {
 
 input,
 select,
-#baudrate-label {
+.custom-dropdown-input-selector>label {
   border: none;
   color: var(--primary);
   padding: var(--padding);
@@ -119,18 +119,18 @@ dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.custom-dropdown-selector {
-  padding: 0;
-  outline: none;
-}
-
-.custom-dropdown-input {
+.custom-dropdown-input-selector {
   display: inline-flex;
   border: none;
   color: var(--primary);
   accent-color: var(--accent);
   background-color: var(--secondary);
   border-radius: var(--border-radius);
+}
+
+.custom-dropdown-input-selector>select {
+  padding: 0;
+  outline: none;
 }
 
 .close-btn {
