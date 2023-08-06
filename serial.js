@@ -21,7 +21,7 @@ const encoder = new TextEncoder("utf-8");
 function getBaudRate() {
   let baudrate = document.querySelector("#baudrate").value;
   if (baudrate === "custom") {
-    baudrate = document.querySelector("#baudrate_custom").value;
+    baudrate = document.querySelector("#baudrate-input").value;
   }
   return Number(baudrate);
 }
