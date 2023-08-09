@@ -40,8 +40,8 @@ async function connectToDevice() {
     document.querySelector("#rts-checkbox").removeAttribute("disabled");
     readFromDevice();
   } catch (error) {
-    const notFoundText = "NotFoundError: No port selected by the user.";
-    const userCancelledConnecting = String(error) === notFoundText;
+    const notFoundText = "NotFoundError:";
+    const userCancelledConnecting = String(error).startsWith(notFoundText);
     if (!userCancelledConnecting) {
       alert(`Could not connect to serial device: ${error}`);
     }
